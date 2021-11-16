@@ -7,11 +7,7 @@ Description: test test
  *  
  */
 
-add_action( 'wp_enqueue_scripts', 'my_custom_enqueue_scripts');
-    function my_custom_enqueue_scripts() {
-        wp_enqueue_style('jquery-datatables-css','//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css');
-        wp_enqueue_script('jquery-datatables-js','//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js',array('jquery'));
-    }
+
  
 function WordPress_resources() {
 	
@@ -85,6 +81,7 @@ add_action( 'init', function () {
 // alert fonction 
 function capitaine_assets() {
  wp_enqueue_script( 'capitaine', plugin_dir_url( __FILE__ )  . '/assets/scripts.js', array( 'jquery' ), '1.0', true );
+ wp_enqueue_script( 'dd', "https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js", array( 'jquery' ), '1.0', true );
  wp_localize_script( 'capitaine', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }
 add_action( 'wp_enqueue_scripts', 'capitaine_assets' );

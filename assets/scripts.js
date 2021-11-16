@@ -1,5 +1,6 @@
 (function($) {
   $(document).ready(function () {
+    $('#tab').DataTable()
     $('#conx').click( function() {
         var login = $('#login').val();
         var pass = $('#password').val();  
