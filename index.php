@@ -10,16 +10,16 @@ Description: test test
 
  
 function WordPress_resources() {
-	
-	wp_enqueue_style('style', get_stylesheet_uri());
-	wp_enqueue_script('main_js', plugin_dir_url( __FILE__ ) . '/assets/main.js', NULL, 1.0, true);
+    
+    wp_enqueue_style('style', get_stylesheet_uri());
+    wp_enqueue_script('main_js', plugin_dir_url( __FILE__ ) . '/assets/main.js', NULL, 1.0, true);
 
-	wp_localize_script('main_js', 'magicalData', array(
-		'nonce' => wp_create_nonce('wp_rest'),
-		'siteURL' => get_site_url()
-	));
-	require_once('oracle.php');
-	require_once('inscription.php');
+    wp_localize_script('main_js', 'magicalData', array(
+        'nonce' => wp_create_nonce('wp_rest'),
+        'siteURL' => get_site_url()
+    ));
+    require_once('oracle.php');
+    require_once('inscription.php');
     require_once('connexion.php');
     require_once('info.php');
 }
@@ -113,7 +113,7 @@ $_SESSION['password'] = $password;
     echo json_encode(array('code1'=>200,'message'=>'success'));
  
 }else {
-echo json_encode(array('code1'=>404,'message'=>'error'));
+echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
 }}
     wp_die();
 
