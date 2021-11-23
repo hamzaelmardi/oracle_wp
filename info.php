@@ -25,7 +25,6 @@ echo "welcome  " ."<b>".$_SESSION["login"]."</b>";
   <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
@@ -33,14 +32,13 @@ echo "welcome  " ."<b>".$_SESSION["login"]."</b>";
   <script src="https://cdn.datatables.net/plug-ins/1.10.19/i18n/French.json"></script>
   <script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
     
-    
-    
 <script>
 $(document).ready(function() {
     $("#example").DataTable({
-      "pageLength":5,
-      
-      });
+       "language": {"url" : "//cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json"},
+       "pageLength":5,
+     stateSave: true,
+    });
 });
 </script>
 <body>
@@ -55,7 +53,7 @@ $(document).ready(function() {
         </tr>
     </thead>
     <tbody>';
-        for ($i = 0; $i < $nrows; $i++) { 
+for ($i = 0; $i < $nrows; $i++) { 
 $table1 .= '<tr>';
  foreach ($results as $data) { 
 $table1 .= "<td >  $data[$i] </td>";

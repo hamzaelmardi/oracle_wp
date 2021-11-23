@@ -32,8 +32,32 @@ function form_inscription_shortcode() {
         <input type="text"  id ="code" name="code" placeholder="code fournisseur" required>
         <input type="text"  id ="login" name="login" placeholder="login" required>
         <input type="text"  id ="password" name="password" placeholder="password" required>
-        <center> <button id ="inscription" > inscription </button> </center>
+        <center> <button class="button button1" id ="inscription" > inscription </button> </center>
       </div>
+
+      <style>
+.button {
+  border: none;
+  color: white;
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #634caf;
+}
+.button1:hover {
+  background-color: #634caf;
+  color: white;
+}
+</style>
      
   ';
 }

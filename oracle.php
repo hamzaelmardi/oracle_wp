@@ -17,7 +17,7 @@ $stmt = oci_parse($conn, "select * from fournisseur");
 oci_execute($stmt);
 $nrows = oci_fetch_all($stmt, $results);
 if ($nrows > 0) {
-echo "<table border=\"1\">\n";
+echo "<table border>";
 echo "<tr>\n";
 foreach ($results as $key => $val) {
 echo "<th>$key</th>\n";
