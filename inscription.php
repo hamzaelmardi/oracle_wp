@@ -28,14 +28,37 @@ $password = $_POST['password'];
 function form_inscription_shortcode() {
  return $var = '
   <div class="admin-quick-add" >
+   <select  id="source" >
+   <option value="" selected disabled>select</option>
+   <option value="Personnephysique">Personne physique</option>
+  <option value="Personnemoral">Personne morale</option>
+</select >
+     <div name="Personnephysique" id="Personnephysique" style="display:none">
         <input type="text" id ="nom" name="nom" placeholder="nom fournisseur" required>
-        <input type="text"  id ="code" name="code" placeholder="code fournisseur" required>
+        <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
         <input type="text"  id ="login" name="login" placeholder="login" required>
         <input type="text"  id ="password" name="password" placeholder="password" required>
         <center> <button class="button button1" id ="inscription" > inscription </button> </center>
       </div>
 
+       <div name="Personnemoral" id="Personnemoral" style="display:none">
+        <input type="text"  id ="Raison" name="Raison" placeholder="Raison sociale" required>
+        <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
+        <input type="text"  id ="Registre" name="Registre" placeholder="Registre de commerce Mail" required>
+        <input type="tel"  id ="tel" name="tel" placeholder="N° téléphone" required>
+        <center> <button class="button button1" id ="#" > inscription </button> </center>
+      </div>
+
       <style>
+  input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 .button {
   border: none;
   color: white;
@@ -58,7 +81,25 @@ function form_inscription_shortcode() {
   color: white;
 }
 </style>
-     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    var bindClickToToggle = function(element){
+        element.click(function(){
+            $(this).parents(".dropdown").find("dd ul").toggle();
+        });
+    };
+    $("#source").change(function () {
+        if ($("#source option:selected").text() == "Personne physique"){
+            $("#Personnemoral").hide();
+            $("#Personnephysique").show();
+        } else if ($("#source option:selected").text() == "Personne morale"){
+            $("#Personnephysique").hide();
+            $("#Personnemoral").show();
+        } });
+});
+</script>
+  
   ';
 }
 

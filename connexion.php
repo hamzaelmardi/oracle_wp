@@ -49,7 +49,7 @@ function form_conx_shortcode() {
 #myHeader {
   background-color: white;
   color: black;
-  padding: 6px 6px;
+  padding: 5px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

@@ -115,7 +115,7 @@ echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
 }}
     wp_die();
 
-}
+}  
 // alert inscription fournniseur
 
 add_action( 'wp_ajax_insert_fourn', 'capitaine_insert_fourn' );
@@ -152,7 +152,14 @@ if($result->rowcount() > 0){
 if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) &&  $exists==false){
     
      echo json_encode(array('code1'=>200 ,'message'=>'inscription valide'));   
-       $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
+       //$wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
+     $userdata = array(
+        'user_login' => $nom,
+        'user_pass' => $hash,
+        'role' => 'fournisseur' // When creating an user, `user_pass` is expected.
+        );
+
+$user_id = wp_insert_user( $userdata ) ;
 
 }
 else {

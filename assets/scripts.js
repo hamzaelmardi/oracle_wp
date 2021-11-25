@@ -35,11 +35,8 @@
           success:function(result){
             var json = JSON.parse(result);
               if(json.code1==200){
-                alert(json.message);
-               document.querySelector('.admin-quick-add [name="nom"]').value = '';
-               document.querySelector('.admin-quick-add [name="password"]').value = '';
-                document.querySelector('.admin-quick-add [name="code"]').value = '';
-               document.querySelector('.admin-quick-add [name="login"]').value = '';
+                var redirect = window.location.origin+'/wordpress/connexion'
+             window.location.href = redirect
             }else{
               alert(json.message);
             }
