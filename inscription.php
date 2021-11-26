@@ -27,6 +27,7 @@ $password = $_POST['password'];
 }}}*/
 function form_inscription_shortcode() {
  return $var = '
+  <h1>Espace inscription partenaire </h1> 
   <div class="admin-quick-add" >
    <select  id="source" >
    <option value="" selected disabled>select</option>
@@ -36,6 +37,8 @@ function form_inscription_shortcode() {
      <div name="Personnephysique" id="Personnephysique" style="display:none">
         <input type="text" id ="nom" name="nom" placeholder="nom fournisseur" required>
         <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
+        <input type="text"  id ="email" name="email" placeholder="adresse email" required>
+        <small style="color: red;">format : exemple@exemple.com</small>
         <input type="text"  id ="login" name="login" placeholder="login" required>
         <input type="text"  id ="password" name="password" placeholder="password" required>
         <center> <button class="button button1" id ="inscription" > inscription </button> </center>

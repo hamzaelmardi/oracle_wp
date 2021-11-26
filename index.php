@@ -128,11 +128,13 @@ function capitaine_insert_fourn() {
     $login = $_POST['login'];
     $password = $_POST['password'];
     $hash = password_hash($password, PASSWORD_DEFAULT);
+    $email = $_POST['email'];
 $vqr= array(
     'nom' =>  $nom,
     'code' =>  $code,
     'password' =>  $hash,
     'login' =>  $login,
+    'email' =>  $email,
   );
 if(isset ($_POST['nom'] , $_POST['code'])){
 $db = new PDO('mysql:dbname=wordpress;host=127.0.0.1', 'root', '');
@@ -151,12 +153,14 @@ if($result->rowcount() > 0){
      oci_fetch_all($stmt,$extract) ;
 if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) &&  $exists==false){
     
-     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide'));   
-       //$wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
-     $userdata = array(
-        'user_login' => $nom,
+     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
+     // $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
+       $userdata = array(
+        'user_login' => $login,
+        'user_nicename' => $nom,
         'user_pass' => $hash,
-        'role' => 'fournisseur' // When creating an user, `user_pass` is expected.
+        'user_email' =>  $email,
+        'role' => 'fournisseur' 
         );
 
 $user_id = wp_insert_user( $userdata ) ;

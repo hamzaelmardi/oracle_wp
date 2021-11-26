@@ -27,11 +27,12 @@
         var nom = $('#nom').val();
         var code = $('#code').val();
         var login = $('#login').val();
-        var password = $('#password').val();  
+        var password = $('#password').val();
+        var email = $('#email').val();   
         $.ajax({
           url: ajaxurl,
           type: "POST",
-          data: {'action': 'insert_fourn','nom': nom,'code': code,'login': login,'password': password,},
+          data: {'action': 'insert_fourn','nom': nom,'code': code,'login': login,'password': password,'email': email,},
           success:function(result){
             var json = JSON.parse(result);
               if(json.code1==200){

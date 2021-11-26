@@ -15,7 +15,7 @@ $dbstr ="(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =127.0.0.1)(PORT = 1521)
 (SERVICE_NAME = orcl)
 (INSTANCE_NAME = orcl)))";
 $conn = oci_connect('c##hamza','123',$dbstr);
-$stmt = oci_parse($conn, "select info,NUMERO,STATUS,DATE_F,fichier from information");
+$stmt = oci_parse($conn, "select DATE_FACTURE,DATE_REGLEMENT,REF_REGLEMENT,MONTANT from information");
 oci_execute($stmt);
 $nrows = oci_fetch_all($stmt, $results);
  if ($nrows > 0) { 
@@ -49,7 +49,10 @@ $(document).ready(function() {
     $("#example thead tr").clone(true).appendTo( "#example thead" );
     $("#example thead tr:eq(1) th").each( function (i) {
         var title = $(this).text();
-         $(this).html( \'<input type="text" placeholder="Search \'+title+\'" style="width: 100%; "/>\' );
+
+        if(i==0 ) $(this).html( \'<input id="date" type="date"  style="width:100%; "/>\' );
+        else if(i==1 ) $(this).html( \'<input id="date" type="date"  style="width:100%; "/>\' );
+        else $(this).html( \'<input type="text" placeholder="Search" style="width: 100%; "/>\' );
  
         $( "input", this ).on( "keyup change", function () {
             if ( table.column(i).search() !== this.value ) {
@@ -74,11 +77,10 @@ $(document).ready(function() {
 <table id="example" class="display">
     <thead>
         <tr>
-            <th>Info</th>
-            <th>Numero</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Ficher</th>
+            <th>Date facture</th>
+            <th>Date règlement</th>
+            <th>Réf règlement</th>
+            <th>Montant réglé</th>
         </tr>
     </thead>
     <tbody>';
@@ -89,7 +91,6 @@ $table1 .= "<td >  $data[$i] </td>";
  } 
  $table1 .= '</tr>';
 }
-
 $table1 .= '</tbody>
 </table>
 </div>
