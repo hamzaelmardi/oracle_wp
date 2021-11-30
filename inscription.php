@@ -49,9 +49,10 @@ function form_inscription_shortcode() {
         <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
         <input type="text"  id ="Registre" name="Registre" placeholder="Registre de commerce Mail" required>
         <input type="tel"  id ="tel" name="tel" placeholder="N° téléphone" required>
+        <input type="text"  id ="login" name="login" placeholder="login" required>
+        <input type="text"  id ="password" name="password" placeholder="password" required>
         <center> <button class="button button1" id ="#" > inscription </button> </center>
       </div>
-
       <style>
   input[type=text], select {
   width: 100%;

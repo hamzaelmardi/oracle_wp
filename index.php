@@ -6,7 +6,7 @@ Description: test test
 /**
  *  
  */
-
+require_once(ABSPATH. WPINC .'/class-phpass.php');
 function WordPress_resources() {
     
     wp_enqueue_style('style', get_stylesheet_uri());
@@ -64,9 +64,6 @@ $query = "INSERT into fournisseur($fields) values($values)";
 }
 }
 }
-   /* $query = "INSERT into fournisseur($fields) values($values)";
-    $list = $wpdb->get_results($query);
-    return $list;*/
 }
 
 add_action( 'init', function () {
@@ -97,22 +94,25 @@ $vqr= array(
     'pass' =>  $password,
     'login' =>  $login,
   );
- $db = new PDO('mysql:dbname=wordpress;host=127.0.0.1', 'root', '');
-$sql= "SELECT * FROM fournisseur WHERE login = '$login' ";
-  $result = $db->prepare($sql);
-  $result->execute();
-  if( $result->rowcount() > 0){
-    $user= $result->fetch();
-  if(password_verify($password, $user['password'])){
+
+  $wp_hasher = new PasswordHash(8,true);
+
+
+  $user= get_user_by('login', $login);
+
+  if($wp_hasher->CheckPassword($password,$user->user_pass)){
+
     ob_start();
     session_start();
-$_SESSION['login'] = $login;
-$_SESSION['password'] = $password;
+    $_SESSION['login'] = $login;
+    $_SESSION['password'] = $password;
     echo json_encode(array('code1'=>200,'message'=>'success'));
  
-}else {
+} else {
+
 echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
-}}
+
+}
     wp_die();
 
 }  
@@ -137,11 +137,10 @@ $vqr= array(
     'email' =>  $email,
   );
 if(isset ($_POST['nom'] , $_POST['code'])){
-$db = new PDO('mysql:dbname=wordpress;host=127.0.0.1', 'root', '');
-$req= "SELECT * FROM fournisseur WHERE login = '$login'";
-$result = $db->prepare($req);
-$result->execute();
-if($result->rowcount() > 0){
+  
+  $user= get_user_by('login', $login);
+
+if($user){
     $exists=true;
 }else{
     $exists=false;
@@ -157,8 +156,8 @@ if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) &&  $exis
      // $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
        $userdata = array(
         'user_login' => $login,
-        'user_nicename' => $nom,
-        'user_pass' => $hash,
+        'first_name' => $nom,
+        'user_pass' => $password,
         'user_email' =>  $email,
         'role' => 'fournisseur' 
         );
@@ -178,19 +177,12 @@ function checklogin($wpcon){
     session_start();
    // var_dump($_SESSION['login']); die();
    
-    if(isset($_SESSION['login'])){
-        $id = $_SESSION['login'];
-        $query = "select * from fournisseur where id ='$id' limit 1";
-        $result = mysqli_query($wpcon,$query);
-        if($result && mysqli_num_rows($result) > 0){
-            $user_data = mysqli_fetch_assoc($result);
-            return $user_data;
-        }
-    }else{
-        
-        header('location: wordpress/connexion'); 
+    if(!isset($_SESSION['login'])){
+            header('location: wordpress/connexion'); 
     }
 
 }
+
+
 
 ?>
