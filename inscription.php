@@ -1,59 +1,11 @@
 <?php
-/*if(isset($_POST['inscription'])){
-  global $wpdb;
- $nom = $_POST['nom'];
- $code = $_POST['code'];
- $login = $_POST['login'];
-$password = $_POST['password'];
- $hash = password_hash($password, PASSWORD_DEFAULT);
-  if(isset ($_POST['nom'] , $_POST['code'])){
-  if($_POST['login'] != '$login' ) {
-    $conn = oci_connect('c##hamza','123','localhost/orcl');
-    $requete1="select nom,code from FOURNISSEUR";
-    $stmt = oci_parse($conn, $requete1);
-     oci_execute($stmt);
-     oci_fetch_all($stmt,$extract) ;
-     
-    if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) ){
-       $table_name = $wpdb->prefix . 'fournisseur';     
-       $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
-      $Loc= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
- 
-     header('Location: '.$Loc);
-}else {
- $Loc= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-  header('Location: '.$Loc);
-}
-}}}*/
 function form_inscription_shortcode() {
  return $var = '
-  <h1>Espace inscription partenaire </h1> 
-  <div class="admin-quick-add" >
-   <select  id="source" >
-   <option value="" selected disabled>select</option>
-   <option value="Personnephysique">Personne physique</option>
-  <option value="Personnemoral">Personne morale</option>
-</select >
-     <div name="Personnephysique" id="Personnephysique" style="display:none">
-        <input type="text" id ="nom" name="nom" placeholder="nom fournisseur" required>
-        <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
-        <input type="text"  id ="email" name="email" placeholder="adresse email" required>
-        <small style="color: red;">format : exemple@exemple.com</small>
-        <input type="text"  id ="login" name="login" placeholder="login" required>
-        <input type="text"  id ="password" name="password" placeholder="password" required>
-        <center> <button class="button button1" id ="inscription" > inscription </button> </center>
-      </div>
-
-       <div name="Personnemoral" id="Personnemoral" style="display:none">
-        <input type="text"  id ="Raison" name="Raison" placeholder="Raison sociale" required>
-        <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
-        <input type="text"  id ="Registre" name="Registre" placeholder="Registre de commerce Mail" required>
-        <input type="tel"  id ="tel" name="tel" placeholder="N° téléphone" required>
-        <input type="text"  id ="login" name="login" placeholder="login" required>
-        <input type="text"  id ="password" name="password" placeholder="password" required>
-        <center> <button class="button button1" id ="#" > inscription </button> </center>
-      </div>
-      <style>
+ <html >
+ <head>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <style>
   input[type=text], select {
   width: 100%;
   padding: 12px 20px;
@@ -85,7 +37,57 @@ function form_inscription_shortcode() {
   color: white;
 }
 </style>
+<body>
+  <h1>Espace inscription partenaire </h1> 
+  <div class="admin-quick-add" >
+   <select  id="source" >
+   <option value="" selected disabled>select</option>
+   <option value="Personnephysique">Personne physique</option>
+  <option value="Personnemoral">Personne morale</option>
+</select >
+     <div name="Personnephysique" id="Personnephysique" style="display:none">
+        <input type="text" id ="nom" name="nom" placeholder="nom" required>
+        <input type="text" id ="prenom" name="prenom" placeholder="prenom" required>
+        <input type="text" id ="cin" name="cin" placeholder="cin" required>
+        <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
+        <div class="input-group mb-3">
+             <input type="text"  id ="email" name="email" placeholder="adresse email" style="width: 416px;"required >
+        <div class="input-group-append" style="height: 49px;position: absolute;right: 0;top: 8px;">
+             <span class="input-group-text">@example.com</span>
+        </div>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend position_icon_fr" style="height: 45px;">
+            <span class="input-group-text" id="basic-addon4" style="height: 46px;position: absolute;left: 0;top: -1px;width: 65px;">+212</i></span>
+            </div>
+            <input type="tel" id ="tel" name="tel" placeholder="telephone" style="width: 88%;right: 0;position: absolute;"/>
+        </div>
+        <input type="text"  id ="login" name="login" placeholder="login" required>
+        <input type="text"  id ="password" name="password" placeholder="password" required>
+        <center> <button class="button button1" id ="inscription" > inscription </button> </center>
+      </div>
+
+       <div name="Personnemoral" id="Personnemoral" style="display:none">
+        <input type="text"  id ="raison" name="raison" placeholder="Raison sociale" required>
+        <input type="text"  id ="code1" name="code1" placeholder="code fournisseur SNTL" required>
+        <input type="text"  id ="registre" name="registre" placeholder="Registre de commerce Mail" required>
+        <div class="input-group">
+            <div class="input-group-prepend position_icon_fr" style="height: 45px;">
+            <span class="input-group-text" id="basic-addon4" style="height: 46px;position: absolute;left: 0;top: -1px;width: 65px;">+212</i></span>
+            </div>
+            <input type="tel" id ="tel1" name="tel1" placeholder="telephone" style="width: 88%;right: 0;position: absolute;"/>
+        </div>
+        <input type="text"  id ="login1" name="login1" placeholder="login" required>
+        <input type="text"  id ="password" name="password" placeholder="password" required>
+        <center> <button class="button button1" id ="inscription1" > inscription </button> </center>
+      </div>
+      </body>
+      </html>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
     $(document).ready(function(){
     var bindClickToToggle = function(element){

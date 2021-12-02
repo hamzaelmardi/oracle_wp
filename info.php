@@ -1,27 +1,27 @@
 <?php
-ob_start();
-session_start();
-include('index.php');
+    ob_start();
+    session_start();
+    include('index.php');
 
-function info_shortcode() {
+    function info_shortcode() {
 
-$wpcon = mysqli_connect("localhost","root","","wordpress");
-$user_data = checklogin($wpcon);
+        $wpcon = mysqli_connect("localhost","root","","wordpress");
+        $user_data = checklogin($wpcon);
 
  // connection database oracle
-$dbstr ="(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =127.0.0.1)(PORT = 1521))
-(CONNECT_DATA =
-(SERVER = DEDICATED)
-(SERVICE_NAME = orcl)
-(INSTANCE_NAME = orcl)))";
-$conn = oci_connect('c##hamza','123',$dbstr);
-$stmt = oci_parse($conn, "select DATE_FACTURE,DATE_REGLEMENT,REF_REGLEMENT,MONTANT from information");
-oci_execute($stmt);
-$nrows = oci_fetch_all($stmt, $results);
- if ($nrows > 0) { 
+    $dbstr ="(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =127.0.0.1)(PORT = 1521))
+            (CONNECT_DATA =
+            (SERVER = DEDICATED)
+            (SERVICE_NAME = orcl)
+            (INSTANCE_NAME = orcl)))";
+    $conn = oci_connect('c##hamza','123',$dbstr);
+    $stmt = oci_parse($conn, "select DATE_FACTURE,DATE_REGLEMENT,REF_REGLEMENT,MONTANT from information");
+    oci_execute($stmt);
+    $nrows = oci_fetch_all($stmt, $results);
+        if ($nrows > 0) { 
 
 //echo "welcome  " ."<b>".$_SESSION["login"]."</b>";
- $table1= '<html>
+    $table1= '<html>
   <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -44,16 +44,18 @@ $nrows = oci_fetch_all($stmt, $results);
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.11.3/dataRender/datetime.js"></script>
 <script>
 $(document).ready(function() {
     $("#example thead tr").clone(true).appendTo( "#example thead" );
     $("#example thead tr:eq(1) th").each( function (i) {
         var title = $(this).text();
 
-        if(i==0 ) $(this).html( \'<input id="date" type="date"  style="width:100%; "/>\' );
-        else if(i==1 ) $(this).html( \'<input id="date" type="date"  style="width:100%; "/>\' );
+        if(i==0 ) $(this).html( \'<input id="date" type="date"   style="width:100%; "/>\' );
+        else if(i==1 ) $(this).html( \'<input id="date" type="date"    style="width:100%; "/>\' );
+        else if(i==3 ) $(this).html( \'<input id="date" type="number" placeholder="Search"   style="width:100%; "/>\' );
         else $(this).html( \'<input type="text" placeholder="Search" style="width: 100%; "/>\' );
- 
+
         $( "input", this ).on( "keyup change", function () {
             if ( table.column(i).search() !== this.value ) {
                 table
@@ -65,6 +67,7 @@ $(document).ready(function() {
     } );
  
     var table = $("#example").DataTable( {
+        "pageLength":5,
         orderCellsTop: true,
         fixedHeader: true
     } );
@@ -74,7 +77,7 @@ $(document).ready(function() {
 <body>
 <div class="row justify-content-start">
 <div class="col-10">
-<table id="example" class="display">
+<table id="example" class="display" style="width:100%">
     <thead>
         <tr>
             <th>Date facture</th>

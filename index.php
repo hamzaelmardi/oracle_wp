@@ -116,7 +116,7 @@ echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
     wp_die();
 
 }  
-// alert inscription fournniseur
+// alert inscription personne phyique
 
 add_action( 'wp_ajax_insert_fourn', 'capitaine_insert_fourn' );
 add_action( 'wp_ajax_nopriv_insert_fourn', 'capitaine_insert_fourn' );
@@ -129,15 +129,22 @@ function capitaine_insert_fourn() {
     $password = $_POST['password'];
     $hash = password_hash($password, PASSWORD_DEFAULT);
     $email = $_POST['email'];
+    $prenom = $_POST['prenom'];
+    $cin = $_POST['cin'];
+    $tel = $_POST['tel'];
 $vqr= array(
     'nom' =>  $nom,
+    'prenom' =>  $prenom,
+    'cin' =>  $cin,
+    'tel' =>  $tel,
     'code' =>  $code,
     'password' =>  $hash,
     'login' =>  $login,
     'email' =>  $email,
+    'tel' =>  $tel,
   );
-if(isset ($_POST['nom'] , $_POST['code'])){
-  
+
+if(isset ($_POST['nom'] , $_POST['code'], $_POST['prenom'], $_POST['cin'], $_POST['email'], $_POST['tel'])){
   $user= get_user_by('login', $login);
 
 if($user){
@@ -145,20 +152,81 @@ if($user){
 }else{
     $exists=false;
 }
+
  $conn = oci_connect('c##hamza','123','localhost/orcl');
-    $requete1="select nom,code from FOURNISSEUR";
+    $requete1="select nom,code,prenom,cin,email,tel from FOURNISSEUR";
     $stmt = oci_parse($conn, $requete1);
      oci_execute($stmt);
      oci_fetch_all($stmt,$extract) ;
-if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) &&  $exists==false){
+if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) and in_array($prenom,$extract['PRENOM']) and 
+   in_array($cin,$extract['CIN']) and  in_array($email,$extract['EMAIL']) and  in_array($tel,$extract['TEL'])
+    &&  $exists==false){
     
      echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
      // $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
        $userdata = array(
         'user_login' => $login,
-        'first_name' => $nom,
+        'first_name' => $prenom,
+        'last_name' => $nom,
         'user_pass' => $password,
         'user_email' =>  $email,
+        'role' => 'fournisseur' 
+        );
+
+$user_id = wp_insert_user( $userdata ) ;
+
+}
+else {
+echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
+}}
+    wp_die();
+}
+
+// alert inscription personne morale
+
+add_action( 'wp_ajax_insert_morale', 'capitaine_insert_morale' );
+add_action( 'wp_ajax_nopriv_insert_morale', 'capitaine_insert_morale' );
+
+function capitaine_insert_morale() {
+    global $wpdb;
+    $raison = $_POST['raison'];
+    $code1 = $_POST['code1'];
+    $login1 = $_POST['login1'];
+    $password = $_POST['password'];
+    $registre = $_POST['registre'];
+    $tel1 = $_POST['tel1'];
+$vqr= array(
+    'raison' =>  $raison,
+    'tel1' =>  $tel1,
+    'code1' =>  $code1,
+    'password' =>  $password,
+    'login1' =>  $login1,
+    'registre' =>  $registre,
+  );
+
+if(isset ($_POST['raison'] , $_POST['code1'], $_POST['registre'], $_POST['tel1'])){
+
+  $user= get_user_by('login1', $login1);
+
+if($user){
+    $exists=true;
+}else{
+    $exists=false;
+}
+
+ $conn = oci_connect('c##hamza','123','localhost/orcl');
+    $requete1="select raison,code,registre,tel from MORALE";
+    $stmt = oci_parse($conn, $requete1);
+     oci_execute($stmt);
+     oci_fetch_all($stmt,$extract) ;
+if(in_array($raison,$extract['RAISON']) and in_array($registre,$extract['REGISTRE']) and in_array($code1,$extract['CODE'])  
+    and in_array($tel1,$extract['TEL']) && $exists==false){
+    
+     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
+       $userdata = array(
+        'user_login' => $login1,
+        'first_name' => $raison,
+        'user_pass' => $password,
         'role' => 'fournisseur' 
         );
 
