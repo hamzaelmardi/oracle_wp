@@ -20,6 +20,8 @@ function WordPress_resources() {
     require_once('inscription.php');
     require_once('connexion.php');
     require_once('info.php');
+    require_once('inscription_cli.php');
+    require_once('connexion_cli.php');
 }
 add_action('wp_enqueue_scripts', 'WordPress_resources');
 
@@ -87,7 +89,7 @@ add_action( 'wp_ajax_nopriv_load_comments', 'capitaine_load_comments' );
 
 function capitaine_load_comments() {
     
-    $login = $_POST['login'];
+$login = $_POST['login'];
 $password = $_POST['pass'];
 
 $vqr= array(
@@ -109,6 +111,7 @@ $vqr= array(
     echo json_encode(array('code1'=>200,'message'=>'success'));
  
 } else {
+
 
 echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
 
@@ -136,7 +139,6 @@ $vqr= array(
     'nom' =>  $nom,
     'prenom' =>  $prenom,
     'cin' =>  $cin,
-    'tel' =>  $tel,
     'code' =>  $code,
     'password' =>  $hash,
     'login' =>  $login,
@@ -160,8 +162,7 @@ if($user){
      oci_fetch_all($stmt,$extract) ;
 if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) and in_array($prenom,$extract['PRENOM']) and 
    in_array($cin,$extract['CIN']) and  in_array($email,$extract['EMAIL']) and  in_array($tel,$extract['TEL'])
-    &&  $exists==false){
-    
+    &&  $exists==false){ 
      echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
      // $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
        $userdata = array(
@@ -206,7 +207,7 @@ $vqr= array(
 
 if(isset ($_POST['raison'] , $_POST['code1'], $_POST['registre'], $_POST['tel1'])){
 
-  $user= get_user_by('login1', $login1);
+  $user= get_user_by('login', $login1);
 
 if($user){
     $exists=true;
@@ -238,6 +239,104 @@ echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
 }}
     wp_die();
 }
+
+
+// alert inscription client
+
+add_action( 'wp_ajax_insert_client', 'capitaine_insert_client' );
+add_action( 'wp_ajax_nopriv_insert_client', 'capitaine_insert_client' );
+
+function capitaine_insert_client() {
+    global $wpdb;
+    $rs = $_POST['rs'];
+    $nom2 = $_POST['nom2'];
+    $prenom2 = $_POST['prenom2'];
+    $code2 = $_POST['code2'];
+    $login2 = $_POST['login2'];
+    $password = $_POST['password'];
+    $email2 = $_POST['email2'];
+    $tel2 = $_POST['tel2'];
+$vqr= array(
+    'rs' =>  $rs,
+    'tel2' =>  $tel2,
+    'code2' =>  $code2,
+    'password' =>  $password,
+    'login2' =>  $login2,
+    'email2' =>  $email2,
+    'nom2' =>  $nom2,
+    'prenom2' =>  $prenom2,
+  );
+
+if(isset ($_POST['rs'] , $_POST['code2'], $_POST['email2'], $_POST['tel2'], $_POST['nom2'], $_POST['prenom2'])){
+
+  $user2= get_user_by('login', $login2);
+
+if($user2){
+    $exists2=true;
+}else{
+    $exists2=false;
+}
+
+ $conn = oci_connect('c##hamza','123','localhost/orcl');
+    $requete1="select nom,prenom,raison,code,email,tel from CLIENT";
+    $stmt = oci_parse($conn, $requete1);
+     oci_execute($stmt);
+     oci_fetch_all($stmt,$extract) ;
+if(in_array($rs,$extract['RAISON']) and in_array($email2,$extract['EMAIL']) and in_array($code2,$extract['CODE'])  
+    and in_array($tel2,$extract['TEL']) and in_array($nom2,$extract['NOM']) and in_array($prenom2,$extract['PRENOM']) && $exists2==false){
+    
+     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
+       $userdata = array(
+        'user_login' => $login2,
+        'first_name' => $prenom2,
+        'last_name' => $nom2,
+        'user_pass' => $password,
+        'user_email' =>  $email2,
+        'role' => 'client' 
+        );
+
+$user_id = wp_insert_user( $userdata ) ;
+
+}
+else {
+echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
+}}
+    wp_die();
+}
+
+// alert connexion client
+add_action( 'wp_ajax_connexion_client', 'capitaine_connexion_client' );
+add_action( 'wp_ajax_nopriv_connexion_client', 'capitaine_connexion_client' );
+
+function capitaine_connexion_client() {
+    
+$login2 = $_POST['login2'];
+$password = $_POST['pass'];
+
+$vqr= array(
+    'pass' =>  $password,
+    'login2' =>  $login2,
+  );
+
+  $wp_hasher = new PasswordHash(8,true);
+  $user= get_user_by('login', $login2);
+
+  if($wp_hasher->CheckPassword($password,$user->user_pass)){
+
+    ob_start();
+    session_start();
+    $_SESSION['login2'] = $login2;
+    $_SESSION['password'] = $password;
+    echo json_encode(array('code1'=>200,'message'=>'success'));
+ 
+} else {
+
+echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
+
+}
+    wp_die();
+
+}  
 
 // check if user is loged in before accessing to info page
 function checklogin($wpcon){

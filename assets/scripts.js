@@ -7,7 +7,7 @@
         $.ajax({
           url: ajaxurl,
           type: "POST",
-          data: {'action': 'load_comments','login': login,'pass': pass,},
+          data: {'action': 'load_comments','login': login,'pass': pass},
           success:function(result){
             var json = JSON.parse(result);
               if(json.code1==200){
@@ -75,3 +75,52 @@
   });
 })(jQuery);
 
+(function($) {
+  $(document).ready(function () {
+    $('#inscriptioncli').click( function() {
+        var rs = $('#rs').val();
+        var nom2 = $('#nom2').val();
+        var prenom2 = $('#prenom2').val();
+        var code2 = $('#code2').val();
+        var login2 = $('#login2').val();
+        var password = $('#password').val();   
+        var email2 = $('#email2').val();
+        var tel2 = $('#tel2').val();
+        $.ajax({
+          url: ajaxurl,
+          type: "POST",
+          data: {'action': 'insert_client','rs': rs,'code2': code2,'nom2': nom2,'prenom2': prenom2,'login2': login2,'password': password,'email2': email2,'tel2': tel2},
+          success:function(result){
+            var json = JSON.parse(result);
+              if(json.code1==200){
+              var redirect = window.location.origin+'/wordpress/connexion-client'
+            window.location.href = redirect
+            }else{
+              alert(json.message);
+            }
+          }
+        })});
+  });
+})(jQuery);
+
+
+(function($) {
+  $(document).ready(function () {
+    $('#conxcli').click( function() {
+        var login2 = $('#login2').val();
+        var pass = $('#password').val();  
+        $.ajax({
+          url: ajaxurl,
+          type: "POST",
+          data: {'action': 'connexion_client','login2': login2,'pass': pass,},
+          success:function(result){
+            var json = JSON.parse(result);
+              if(json.code1==200){
+               alert(json.message);
+            }else{
+              alert(json.message);
+            }
+          }
+        })});
+  });
+})(jQuery);
