@@ -1,9 +1,14 @@
 (function($) {
   $(document).ready(function () {
-    $('#tab').DataTable()
     $('#conx').click( function() {
+     
         var login = $('#login').val();
         var pass = $('#password').val();  
+         if ($.trim($('#login').val()).length == 0 || $.trim($('#password').val()).length == 0)
+  {
+    alert("champs are empty");
+    return false;
+  }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -11,8 +16,17 @@
           success:function(result){
             var json = JSON.parse(result);
               if(json.code1==200){
+
+                const role = json.role
+                console.log(role)
+                if(role.includes("fournisseur")){
               var redirect = window.location.origin+'/wordpress/info'
-             window.location.href = redirect
+              window.location.href = redirect
+                }
+                else if(role.includes("client")){
+                     alert(json.message);
+                }
+             
             }else{
               alert(json.message);
             }
@@ -32,6 +46,14 @@
         var prenom = $('#prenom').val();   
         var cin = $('#cin').val();
         var tel = $('#tel').val();
+         if ($.trim($('#nom').val()).length == 0 || $.trim($('#code').val()).length == 0 
+          || $.trim($('#login').val()).length == 0 || $.trim($('#password').val()).length == 0
+          || $.trim($('#email').val()).length == 0 || $.trim($('#prenom').val()).length == 0
+          || $.trim($('#cin').val()).length == 0 || $.trim($('#tel').val()).length == 0)
+  {
+    alert("champs are empty");
+    return false;
+  }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -55,9 +77,17 @@
         var raison = $('#raison').val();
         var code1 = $('#code1').val();
         var login1 = $('#login1').val();
-        var password = $('#password').val();   
+        var password = $('#password1').val();   
         var registre = $('#registre').val();
         var tel1 = $('#tel1').val();
+         if ($.trim($('#raison').val()).length == 0 || $.trim($('#registre').val()).length == 0 
+          || $.trim($('#code1').val()).length == 0 || $.trim($('#password1').val()).length == 0
+          || $.trim($('#login1').val()).length == 0 || $.trim($('#tel1').val()).length == 0
+          )
+  {
+    alert("champs are empty");
+    return false;
+  }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -86,6 +116,14 @@
         var password = $('#password').val();   
         var email2 = $('#email2').val();
         var tel2 = $('#tel2').val();
+         if ($.trim($('#rs').val()).length == 0 || $.trim($('#nom2').val()).length == 0 
+          || $.trim($('#prenom2').val()).length == 0 || $.trim($('#code2').val()).length == 0
+          || $.trim($('#login2').val()).length == 0 || $.trim($('#password').val()).length == 0
+          || $.trim($('#email2').val()).length == 0 || $.trim($('#tel2').val()).length == 0)
+  {
+    alert("champs are empty");
+    return false;
+  }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -93,7 +131,7 @@
           success:function(result){
             var json = JSON.parse(result);
               if(json.code1==200){
-              var redirect = window.location.origin+'/wordpress/connexion-client'
+              var redirect = window.location.origin+'/wordpress/connexion'
             window.location.href = redirect
             }else{
               alert(json.message);
@@ -104,23 +142,3 @@
 })(jQuery);
 
 
-(function($) {
-  $(document).ready(function () {
-    $('#conxcli').click( function() {
-        var login2 = $('#login2').val();
-        var pass = $('#password').val();  
-        $.ajax({
-          url: ajaxurl,
-          type: "POST",
-          data: {'action': 'connexion_client','login2': login2,'pass': pass,},
-          success:function(result){
-            var json = JSON.parse(result);
-              if(json.code1==200){
-               alert(json.message);
-            }else{
-              alert(json.message);
-            }
-          }
-        })});
-  });
-})(jQuery);

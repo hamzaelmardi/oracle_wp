@@ -46,9 +46,9 @@ function form_inscription_client_shortcode() {
         <input type="text" id ="prenom2" name="prenom2" placeholder="prenom" required>
         <input type="text"  id ="code2" name="code2" placeholder="code client SNTL" required>
         <div class="input-group mb-3">
-             <input type="text"  id ="email2" name="email2" placeholder="adresse email" style="width: 416px;"required >
+             <input type="text"  id ="email2" name="email2" placeholder="adresse email" style="width: 350px;"required >
         <div class="input-group-append" style="height: 49px;position: absolute;right: 0;top: 8px;">
-             <span class="input-group-text">@example.com</span>
+             <span class="input-group-text">example@example.com</span>
         </div>
         </div>
         <div class="input-group">

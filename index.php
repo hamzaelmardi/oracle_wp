@@ -6,7 +6,7 @@ Description: test test
 /**
  *  
  */
-require_once(ABSPATH. WPINC .'/class-phpass.php');
+ require_once(ABSPATH. WPINC .'/class-phpass.php');
 function WordPress_resources() {
     
     wp_enqueue_style('style', get_stylesheet_uri());
@@ -108,7 +108,7 @@ $vqr= array(
     session_start();
     $_SESSION['login'] = $login;
     $_SESSION['password'] = $password;
-    echo json_encode(array('code1'=>200,'message'=>'success'));
+    echo json_encode(array('code1'=>200,'message'=>'success', 'role'=>$user->roles));
  
 } else {
 
@@ -147,22 +147,17 @@ $vqr= array(
   );
 
 if(isset ($_POST['nom'] , $_POST['code'], $_POST['prenom'], $_POST['cin'], $_POST['email'], $_POST['tel'])){
-  $user= get_user_by('login', $login);
-
-if($user){
-    $exists=true;
-}else{
-    $exists=false;
-}
+ $user = get_user_by('login', $login);
+ $user_m = get_user_by('email', $email);
 
  $conn = oci_connect('c##hamza','123','localhost/orcl');
-    $requete1="select nom,code,prenom,cin,email,tel from FOURNISSEUR";
+    $requete1="select nom,code,prenom,cin,email,tel from FOURNISSEUR where code ='$code'";
     $stmt = oci_parse($conn, $requete1);
      oci_execute($stmt);
-     oci_fetch_all($stmt,$extract) ;
+     oci_fetch_all($stmt,$extract);
 if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) and in_array($prenom,$extract['PRENOM']) and 
    in_array($cin,$extract['CIN']) and  in_array($email,$extract['EMAIL']) and  in_array($tel,$extract['TEL'])
-    &&  $exists==false){ 
+    && !$user_m &&  !$user){ 
      echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
      // $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
        $userdata = array(
@@ -209,11 +204,6 @@ if(isset ($_POST['raison'] , $_POST['code1'], $_POST['registre'], $_POST['tel1']
 
   $user= get_user_by('login', $login1);
 
-if($user){
-    $exists=true;
-}else{
-    $exists=false;
-}
 
  $conn = oci_connect('c##hamza','123','localhost/orcl');
     $requete1="select raison,code,registre,tel from MORALE";
@@ -221,7 +211,7 @@ if($user){
      oci_execute($stmt);
      oci_fetch_all($stmt,$extract) ;
 if(in_array($raison,$extract['RAISON']) and in_array($registre,$extract['REGISTRE']) and in_array($code1,$extract['CODE'])  
-    and in_array($tel1,$extract['TEL']) && $exists==false){
+    and in_array($tel1,$extract['TEL']) &&  !$user){
     
      echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
        $userdata = array(
@@ -256,6 +246,8 @@ function capitaine_insert_client() {
     $password = $_POST['password'];
     $email2 = $_POST['email2'];
     $tel2 = $_POST['tel2'];
+
+
 $vqr= array(
     'rs' =>  $rs,
     'tel2' =>  $tel2,
@@ -267,15 +259,11 @@ $vqr= array(
     'prenom2' =>  $prenom2,
   );
 
+
 if(isset ($_POST['rs'] , $_POST['code2'], $_POST['email2'], $_POST['tel2'], $_POST['nom2'], $_POST['prenom2'])){
 
-  $user2= get_user_by('login', $login2);
-
-if($user2){
-    $exists2=true;
-}else{
-    $exists2=false;
-}
+  $user= get_user_by('login', $login2);
+  $user_m = get_user_by('email', $email);
 
  $conn = oci_connect('c##hamza','123','localhost/orcl');
     $requete1="select nom,prenom,raison,code,email,tel from CLIENT";
@@ -283,7 +271,7 @@ if($user2){
      oci_execute($stmt);
      oci_fetch_all($stmt,$extract) ;
 if(in_array($rs,$extract['RAISON']) and in_array($email2,$extract['EMAIL']) and in_array($code2,$extract['CODE'])  
-    and in_array($tel2,$extract['TEL']) and in_array($nom2,$extract['NOM']) and in_array($prenom2,$extract['PRENOM']) && $exists2==false){
+    and in_array($tel2,$extract['TEL']) and in_array($nom2,$extract['NOM']) and in_array($prenom2,$extract['PRENOM']) && !$user_m &&  !$user){
     
      echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
        $userdata = array(
@@ -349,7 +337,6 @@ function checklogin($wpcon){
     }
 
 }
-
 
 
 ?>
