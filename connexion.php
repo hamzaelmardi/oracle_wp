@@ -38,8 +38,9 @@ function form_conx_shortcode() {
   <div class="admin-quick-add">
         <input type="text" id ="login" name="login"  placeholder="login" required>
         <input type="password" id ="password" name="password" placeholder="password" required>
-        <center> <button class="button button1" id ="conx"> se connecter </button> </center>  
-        <a id="myHeader" href="/wordpress/inscription" target="_blank">Créer votre compte</a>
+        <center> <button class="button button1" id ="conx"> se connecter </button> </center>  <br>
+        <a id="myHeader" href="/wordpress/inscription" target="_blank">Créer votre compte fournisseur</a>
+        <a id="myHeader" href="/wordpress/inscription-client" target="_blank">Créer votre compte client</a>
      </div>   
   ';
 }

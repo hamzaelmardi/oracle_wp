@@ -6,6 +6,7 @@ function form_inscription_shortcode() {
  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
  </head>
  <style>
+ 
   input[type=text], select {
   width: 100%;
   padding: 12px 20px;

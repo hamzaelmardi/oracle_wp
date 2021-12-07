@@ -26,6 +26,17 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <style>
+    .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 2px;
+    background-color: transparent;
+    margin-left: 3px;
+}
+    table {
+  width: 100%;
+  border: 1px solid black;
+}
 .button {
   border: none;
   color: white;
@@ -98,7 +109,6 @@ $table1 .= '</tbody>
 </table>
 </div>
 </div>
-
 
 <b> <center> Click here to<a href = "/wordpress/wp-content/plugins/test/logout" class="button"> logout.<a></center> </b>
 </body>

@@ -24,7 +24,8 @@
               window.location.href = redirect
                 }
                 else if(role.includes("client")){
-                     alert(json.message);
+                    var redirect = window.location.origin+'/wordpress/espace-client' 
+              window.location.href = redirect
                 }
              
             }else{

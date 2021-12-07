@@ -21,7 +21,8 @@ function WordPress_resources() {
     require_once('connexion.php');
     require_once('info.php');
     require_once('inscription_cli.php');
-    require_once('connexion_cli.php');
+    require_once('client.php');
+   
 }
 add_action('wp_enqueue_scripts', 'WordPress_resources');
 
@@ -292,39 +293,8 @@ echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
     wp_die();
 }
 
-// alert connexion client
-add_action( 'wp_ajax_connexion_client', 'capitaine_connexion_client' );
-add_action( 'wp_ajax_nopriv_connexion_client', 'capitaine_connexion_client' );
 
-function capitaine_connexion_client() {
-    
-$login2 = $_POST['login2'];
-$password = $_POST['pass'];
 
-$vqr= array(
-    'pass' =>  $password,
-    'login2' =>  $login2,
-  );
-
-  $wp_hasher = new PasswordHash(8,true);
-  $user= get_user_by('login', $login2);
-
-  if($wp_hasher->CheckPassword($password,$user->user_pass)){
-
-    ob_start();
-    session_start();
-    $_SESSION['login2'] = $login2;
-    $_SESSION['password'] = $password;
-    echo json_encode(array('code1'=>200,'message'=>'success'));
- 
-} else {
-
-echo json_encode(array('code1'=>404,'message'=>'login ou password incorrect'));
-
-}
-    wp_die();
-
-}  
 
 // check if user is loged in before accessing to info page
 function checklogin($wpcon){
