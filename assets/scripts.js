@@ -4,11 +4,22 @@
      
         var login = $('#login').val();
         var pass = $('#password').val();  
-         if ($.trim($('#login').val()).length == 0 || $.trim($('#password').val()).length == 0)
-  {
-    alert("champs are empty");
-    return false;
-  }
+        var er = false;
+  if ($.trim($('#login').val()).length == 0 ){
+      $('#loginobli').removeClass('hidden');
+      er = true;
+    }else {
+      $('#loginobli').addClass('hidden');
+    }
+  if ($.trim($('#password').val()).length == 0 ){
+     $('#passobli').removeClass('hidden');
+     er = true;
+    }else{
+    $('#passobli').addClass('hidden');
+     }
+  if( er == true){
+     return false;
+    }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -27,9 +38,12 @@
                     var redirect = window.location.origin+'/wordpress/espace-client' 
               window.location.href = redirect
                 }
-             
             }else{
-              alert(json.message);
+              Swal.fire({
+              icon: 'warning',
+              text: json.message,
+              timer: 3000
+             })
             }
           }
         })});
@@ -65,7 +79,11 @@
                 var redirect = window.location.origin+'/wordpress/connexion'
              window.location.href = redirect
             }else{
-              alert(json.message);
+              Swal.fire({
+              icon: 'error',
+              text: json.message,
+              timer: 3000
+             })
             }
           }
         })});
@@ -99,7 +117,11 @@
                 var redirect = window.location.origin+'/wordpress/connexion'
              window.location.href = redirect
             }else{
-              alert(json.message);
+            Swal.fire({
+              icon: 'error',
+              text: json.message,
+              timer: 3000
+             })
             }
           }
         })});
@@ -135,7 +157,11 @@
               var redirect = window.location.origin+'/wordpress/connexion'
             window.location.href = redirect
             }else{
-              alert(json.message);
+              Swal.fire({
+              icon: 'error',
+              text: json.message,
+              timer: 3000
+             })
             }
           }
         })});

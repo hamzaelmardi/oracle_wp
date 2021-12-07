@@ -40,7 +40,7 @@ function form_inscription_shortcode() {
 </style>
 <body>
   <h1>Espace inscription partenaire </h1> 
-  <div class="admin-quick-add" >
+  <!-- <div class="admin-quick-add" > -->
    <select  id="source" >
    <option value="" selected disabled>select</option>
    <option value="Personnephysique">Personne physique</option>
@@ -52,16 +52,16 @@ function form_inscription_shortcode() {
         <input type="text" id ="cin" name="cin" placeholder="cin" required>
         <input type="text"  id ="code" name="code" placeholder="code fournisseur SNTL" required>
         <div class="input-group mb-3">
-             <input type="text"  id ="email" name="email" placeholder="adresse email" style="width: 350px;"required >
+             <input type="text"  id ="email" name="email" placeholder="adresse email" style="width: 384px;"required >
         <div class="input-group-append" style="height: 49px;position: absolute;right: 0;top: 8px;">
              <span class="input-group-text">example@example.com</span>
         </div>
         </div>
         <div class="input-group">
             <div class="input-group-prepend position_icon_fr" style="height: 45px;">
-            <span class="input-group-text" id="basic-addon4" style="height: 46px;position: absolute;left: 0;top: -1px;width: 65px;">+212</i></span>
+            <span class="input-group-text" id="basic-addon4" style="height: 45px;position: absolute;left: 0;top: -1px;width: 69px;">+212</i></span>
             </div>
-            <input type="tel" id ="tel" name="tel" placeholder="telephone" style="width: 88%;right: 0;position: absolute;"/>
+            <input type="tel" id ="tel" name="tel" placeholder="telephone" style="width: 43%;right: 261px;position: absolute;top: -1px;height: 45px;"/>
         </div>
         <input type="text"  id ="login" name="login" placeholder="login" required>
         <input type="text"  id ="password" name="password" placeholder="password" required>
@@ -74,9 +74,9 @@ function form_inscription_shortcode() {
         <input type="text"  id ="registre" name="registre" placeholder="Registre de commerce Mail" required>
         <div class="input-group">
             <div class="input-group-prepend position_icon_fr" style="height: 45px;">
-            <span class="input-group-text" id="basic-addon4" style="height: 46px;position: absolute;left: 0;top: -1px;width: 65px;">+212</i></span>
+            <span class="input-group-text" id="basic-addon4" style="height: 45px;position: absolute;left: 0;top: -1px;width: 69px;">+212</i></span>
             </div>
-            <input type="tel" id ="tel1" name="tel1" placeholder="telephone" style="width: 88%;right: 0;position: absolute;"/>
+            <input type="tel" id ="tel1" name="tel1" placeholder="telephone" style="width: 43%;right: 261px;position: absolute;top: -1px;height: 45px;"/>
         </div>
         <input type="text"  id ="login1" name="login1" placeholder="login" required>
         <input type="text"  id ="password1" name="password1" placeholder="password" required>
@@ -84,7 +84,7 @@ function form_inscription_shortcode() {
       </div>
       </body>
       </html>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

@@ -159,7 +159,7 @@ if(isset ($_POST['nom'] , $_POST['code'], $_POST['prenom'], $_POST['cin'], $_POS
 if(in_array($nom,$extract['NOM']) and in_array($code,$extract['CODE']) and in_array($prenom,$extract['PRENOM']) and 
    in_array($cin,$extract['CIN']) and  in_array($email,$extract['EMAIL']) and  in_array($tel,$extract['TEL'])
     && !$user_m &&  !$user){ 
-     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
+     echo json_encode(array('code1'=>200 ,'message'=>'s le compte est créé et activé')); 
      // $wpdb->insert('fournisseur', array('nom' => $nom, 'code' => $code, 'login' => $login, 'password' => $hash)); 
        $userdata = array(
         'user_login' => $login,
@@ -174,7 +174,7 @@ $user_id = wp_insert_user( $userdata ) ;
 
 }
 else {
-echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
+echo json_encode(array('code1'=>404 ,'message'=>'informations saisies ne correspondent pas aux informations saisies sur le système de gestion, veuillez contacter la SNTL'));
 }}
     wp_die();
 }
@@ -207,14 +207,14 @@ if(isset ($_POST['raison'] , $_POST['code1'], $_POST['registre'], $_POST['tel1']
 
 
  $conn = oci_connect('c##hamza','123','localhost/orcl');
-    $requete1="select raison,code,registre,tel from MORALE";
+    $requete1="select raison,code,registre,tel from MORALE where code ='$code1'";
     $stmt = oci_parse($conn, $requete1);
      oci_execute($stmt);
      oci_fetch_all($stmt,$extract) ;
 if(in_array($raison,$extract['RAISON']) and in_array($registre,$extract['REGISTRE']) and in_array($code1,$extract['CODE'])  
     and in_array($tel1,$extract['TEL']) &&  !$user){
     
-     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
+     echo json_encode(array('code1'=>200 ,'message'=>'le compte est créé et activé')); 
        $userdata = array(
         'user_login' => $login1,
         'first_name' => $raison,
@@ -226,7 +226,7 @@ $user_id = wp_insert_user( $userdata ) ;
 
 }
 else {
-echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
+echo json_encode(array('code1'=>404 ,'message'=>'informations saisies ne correspondent pas aux informations saisies sur le système de gestion, veuillez contacter la SNTL'));
 }}
     wp_die();
 }
@@ -267,14 +267,14 @@ if(isset ($_POST['rs'] , $_POST['code2'], $_POST['email2'], $_POST['tel2'], $_PO
   $user_m = get_user_by('email', $email);
 
  $conn = oci_connect('c##hamza','123','localhost/orcl');
-    $requete1="select nom,prenom,raison,code,email,tel from CLIENT";
+    $requete1="select nom,prenom,raison,code,email,tel from CLIENT where code ='$code2'";
     $stmt = oci_parse($conn, $requete1);
      oci_execute($stmt);
      oci_fetch_all($stmt,$extract) ;
 if(in_array($rs,$extract['RAISON']) and in_array($email2,$extract['EMAIL']) and in_array($code2,$extract['CODE'])  
     and in_array($tel2,$extract['TEL']) and in_array($nom2,$extract['NOM']) and in_array($prenom2,$extract['PRENOM']) && !$user_m &&  !$user){
     
-     echo json_encode(array('code1'=>200 ,'message'=>'inscription valide')); 
+     echo json_encode(array('code1'=>200 ,'message'=>'le compte est créé et activé')); 
        $userdata = array(
         'user_login' => $login2,
         'first_name' => $prenom2,
@@ -288,7 +288,7 @@ $user_id = wp_insert_user( $userdata ) ;
 
 }
 else {
-echo json_encode(array('code1'=>404 ,'message'=>'inscription non valide'));
+echo json_encode(array('code1'=>404 ,'message'=>'informations saisies ne correspondent pas aux informations saisies sur le système de gestion, veuillez contacter la SNTL'));
 }}
     wp_die();
 }
