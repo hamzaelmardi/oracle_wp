@@ -25,6 +25,8 @@
   <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css" rel="stylesheet" type="text/css" />
     <style>
     .dataTables_wrapper .dataTables_filter input {
     border: 1px solid #aaa;
@@ -50,8 +52,10 @@
   cursor: pointer;
 }
 </style>
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
@@ -62,8 +66,8 @@ $(document).ready(function() {
     $("#example thead tr:eq(1) th").each( function (i) {
         var title = $(this).text();
 
-        if(i==0 ) $(this).html( \'<input id="date" type="date"   style="width:100%; "/>\' );
-        else if(i==1 ) $(this).html( \'<input id="date" type="date"    style="width:100%; "/>\' );
+        if(i==0 ) $(this).html( \'<input id="facture" type="text" name="facture" placeholder="Search"  style="width:100%; "/>\' );
+        else if(i==1 ) $(this).html( \'<input id="reglement" type="text" name="reglement" placeholder="Search" style="width:100%; "/>\' );
         else if(i==3 ) $(this).html( \'<input id="date" type="number" placeholder="Search"   style="width:100%; "/>\' );
         else $(this).html( \'<input type="text" placeholder="Search" style="width: 100%; "/>\' );
 
@@ -76,12 +80,41 @@ $(document).ready(function() {
             }
         } );
     } );
- 
+
     var table = $("#example").DataTable( {
         "pageLength":5,
         orderCellsTop: true,
         fixedHeader: true
     } );
+
+    $("#facture,#reglement").on("change", function () {
+        table.draw();
+    });
+});
+ var Datef, Dater;
+ 
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var facture = Datef.val();
+        var reglement = Dater.val();
+        if (
+            ( facture === null) 
+            ( reglement === null) 
+            
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+$(document).ready(function() {
+    Datef = new DateTime($("#facture"), {
+        format: "DD/MM/YY"
+    });
+Dater = new DateTime($("#reglement"), {
+        format: "DD/MM/YY"
+    });
+ 
 } );
 </script>
 

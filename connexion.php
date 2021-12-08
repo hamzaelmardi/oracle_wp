@@ -41,9 +41,9 @@ function form_conx_shortcode() {
 </style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <div class="admin-quick-add">
-        <input type="text" id ="login" name="login"  placeholder="nom d\'utilisateur" style="margin-bottom: 5px;" required>
+        <input type="text" id ="login" name="login"  placeholder="nom d\'utilisateur" style="margin-bottom: 3px;" required>
         <label class="hidden" id="loginobli" style="color: #d93025; font-size: 12px;align-items: flex-start;margin-left: 10px">Saisissez votre nom d\'utilisateur</label> 
-        <input type="password" id ="password" name="password" placeholder="mot de passe" style="margin-top: 6px;margin-bottom: 5px;" required>
+        <input type="password" id ="password" name="password" placeholder="mot de passe" style="margin-top: 6px;margin-bottom: 3px;" required>
         <label class="hidden" id="passobli" style="color: #d93025; font-size: 12px ;align-items: flex-start;margin-left: 10px">Entrez un mot de passe</label> <br>
         <center> <button class="button button1" id ="conx"> se connecter </button> </center>  <br>
         <a id="myHeader" href="/wordpress/inscription" target="_blank">Créer votre compte fournisseur</a>
