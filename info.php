@@ -109,10 +109,12 @@ $.fn.dataTable.ext.search.push(
 );
 $(document).ready(function() {
     Datef = new DateTime($("#facture"), {
-        format: "DD/MM/YY"
+        format: "DD/MM/YY",
+buttons: {clear: true}
     });
 Dater = new DateTime($("#reglement"), {
-        format: "DD/MM/YY"
+        format: "DD/MM/YY",
+        buttons: {clear: true}
     });
  
 } );

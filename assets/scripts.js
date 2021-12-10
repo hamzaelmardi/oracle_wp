@@ -5,18 +5,19 @@
         var login = $('#login').val();
         var pass = $('#password').val();  
         var er = false;
-  if ($.trim($('#login').val()).length == 0 ){
-      $('#loginobli').removeClass('hidden');
-      er = true;
-    }else {
-      $('#loginobli').addClass('hidden');
-    }
-  if ($.trim($('#password').val()).length == 0 ){
-     $('#passobli').removeClass('hidden');
-     er = true;
-    }else{
-    $('#passobli').addClass('hidden');
-     }
+
+  function formValidation(arr){
+    arr.forEach(function(el) {
+        if ($.trim($('#'+el).val()).length == 0) {
+          $('.'+el).css('display','block');
+          er = true;
+        } else {
+          $('.'+el).css('display','none');
+        }
+    });
+  }
+var fields = ['login','password']
+formValidation(fields)
   if( er == true){
      return false;
     }
@@ -61,14 +62,23 @@
         var prenom = $('#prenom').val();   
         var cin = $('#cin').val();
         var tel = $('#tel').val();
-         if ($.trim($('#nom').val()).length == 0 || $.trim($('#code').val()).length == 0 
-          || $.trim($('#login').val()).length == 0 || $.trim($('#password').val()).length == 0
-          || $.trim($('#email').val()).length == 0 || $.trim($('#prenom').val()).length == 0
-          || $.trim($('#cin').val()).length == 0 || $.trim($('#tel').val()).length == 0)
-  {
-    alert("champs are empty");
-    return false;
+        var er = false;
+
+  function formValidation(arr){
+    arr.forEach(function(el) {
+        if ($.trim($('#'+el).val()).length == 0) {
+          $('.'+el).css('display','block');
+          er = true;
+        } else {
+          $('.'+el).css('display','none');
+        }
+    });
   }
+var fields = ['nom','prenom','cin','code','email','tel','login','password']
+formValidation(fields)
+  if( er == true){
+     return false;
+    }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -99,14 +109,23 @@
         var password = $('#password1').val();   
         var registre = $('#registre').val();
         var tel1 = $('#tel1').val();
-         if ($.trim($('#raison').val()).length == 0 || $.trim($('#registre').val()).length == 0 
-          || $.trim($('#code1').val()).length == 0 || $.trim($('#password1').val()).length == 0
-          || $.trim($('#login1').val()).length == 0 || $.trim($('#tel1').val()).length == 0
-          )
-  {
-    alert("champs are empty");
-    return false;
+         var er = false;
+
+  function formValidation(arr){
+    arr.forEach(function(el) {
+        if ($.trim($('#'+el).val()).length == 0) {
+          $('.'+el).css('display','block');
+          er = true;
+        } else {
+          $('.'+el).css('display','none');
+        }
+    });
   }
+var fields = ['raison','prenom','registre','code1','tel1','login1','password1']
+formValidation(fields)
+  if( er == true){
+     return false;
+    }
         $.ajax({
           url: ajaxurl,
           type: "POST",
@@ -139,14 +158,23 @@
         var password = $('#password').val();   
         var email2 = $('#email2').val();
         var tel2 = $('#tel2').val();
-         if ($.trim($('#rs').val()).length == 0 || $.trim($('#nom2').val()).length == 0 
-          || $.trim($('#prenom2').val()).length == 0 || $.trim($('#code2').val()).length == 0
-          || $.trim($('#login2').val()).length == 0 || $.trim($('#password').val()).length == 0
-          || $.trim($('#email2').val()).length == 0 || $.trim($('#tel2').val()).length == 0)
-  {
-    alert("champs are empty");
-    return false;
+         var er = false;
+
+  function formValidation(arr){
+    arr.forEach(function(el) {
+        if ($.trim($('#'+el).val()).length == 0) {
+          $('.'+el).css('display','block');
+          er = true;
+        } else {
+          $('.'+el).css('display','none');
+        }
+    });
   }
+var fields = ['rs','prenom2','nom2','code2','tel2','login2','password2','email2']
+formValidation(fields)
+  if( er == true){
+     return false;
+    }
         $.ajax({
           url: ajaxurl,
           type: "POST",
